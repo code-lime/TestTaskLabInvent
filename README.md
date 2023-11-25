@@ -57,12 +57,12 @@ RabbitMQ, SQLite)
   ```
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-pluginsudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-pluginlinux/ubuntu   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   ```
-* Уставнока `docker` и `docker-compose`
+* Установка `docker` и `docker-compose`
   ```
   sudo apt-get update
   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
   ```
-* Проверка успешности уставноки `docker`
+* Проверка успешности установки `docker`
   ```
   sudo docker run hello-world
   ```
@@ -83,7 +83,7 @@ RabbitMQ, SQLite)
    > RABBITMQ_PASSWORD=queue_pass // Пароль от пользователя RabbitMQ
    > RABBITMQ_QUEUE=test_queue // Название очереди в RabbitMQ
    > 
-   > LOGGING_LEVEL=Information // Уровени логирования (Verbose, Debug, Information, Warning, Error, Fatal)
+   > LOGGING_LEVEL=Information // Уровни логирования (Verbose, Debug, Information, Warning, Error, Fatal)
    > 
    > FILELISTENER_DELAY_SEC=1.0 // Частота проверки файлов
    > ```
@@ -96,16 +96,16 @@ RabbitMQ, SQLite)
 
 Для обработки `.xml` файлов требуется их разместить в папке `./ext/files`, которая была создана после запуска `docker-compose`.
 
-В папке `./ext/sqlite` находится файл базы данных в который происходит сохранение измененых данных из `.xml` файлов отправленных через `RabbitMQ`
+В папке `./ext/sqlite` находится файл `SQLite` базы данных в который происходит сохранение измененных данных из `.xml` файлов отправленных через `RabbitMQ`
 
 ### Setup remote RabbitMQ
 
 Для подключения внешней `RabbitMQ` требуется изменить файл [docker-compose.yml](docker-compose.yml).
 
-* Отключить локальный `RabbitMQ`, а также зависимости от него закоментировав данные части кода
-  https://github.com/code-lime/TestTaskLabInvent/blob/bcb299c9ff6b9f23016dbb54b7fe28466dcc7584/docker-compose.yml#L58-L78
-  https://github.com/code-lime/TestTaskLabInvent/blob/bcb299c9ff6b9f23016dbb54b7fe28466dcc7584/docker-compose.yml#L34-L40
+* Отключить локальный `RabbitMQ` и зависимости от него, закомментировав данные части кода
   https://github.com/code-lime/TestTaskLabInvent/blob/bcb299c9ff6b9f23016dbb54b7fe28466dcc7584/docker-compose.yml#L8-L14
+  https://github.com/code-lime/TestTaskLabInvent/blob/bcb299c9ff6b9f23016dbb54b7fe28466dcc7584/docker-compose.yml#L34-L40
+  https://github.com/code-lime/TestTaskLabInvent/blob/bcb299c9ff6b9f23016dbb54b7fe28466dcc7584/docker-compose.yml#L58-L78
   https://github.com/code-lime/TestTaskLabInvent/blob/bcb299c9ff6b9f23016dbb54b7fe28466dcc7584/docker-compose.yml#L80-L82
 * Изменить `amqp` ссылку для обоих сервисов
   https://github.com/code-lime/TestTaskLabInvent/blob/bcb299c9ff6b9f23016dbb54b7fe28466dcc7584/docker-compose.yml#L27
