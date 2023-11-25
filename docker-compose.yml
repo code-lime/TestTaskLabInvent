@@ -1,0 +1,82 @@
+version: '3.4'
+
+services:
+
+  dataprocessor:
+    image: ${DOCKER_REGISTRY-}dataprocessor
+    container_name: DataProcessor
+    networks:
+      - rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    links: 
+      - rabbitmq
+    volumes:
+      - ./etc/sqlite:/sqlite
+    build:
+      context: .
+      dockerfile: src/DataProcessor/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      
+      - Serilog__MinimumLevel__Default=${LOGGING_LEVEL}
+
+      - SQLite__File=/sqlite/database.db
+      
+      - RabbitMq__Url=amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672
+      - RabbitMq__Queue=${RABBITMQ_QUEUE}
+    restart: always
+
+  fileparser:
+    image: ${DOCKER_REGISTRY-}fileparser
+    container_name: FileParser
+    networks:
+      - rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    links: 
+      - rabbitmq
+    volumes:
+      - ./etc/files:/files
+    build:
+      context: .
+      dockerfile: src/FileParser/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      
+      - Serilog__MinimumLevel__Default=${LOGGING_LEVEL}
+      
+      - FileListener__Directory=/files
+      - FileListener__TimerDelaySec=${FILELISTENER_DELAY_SEC}
+      
+      - RabbitMq__Url=amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672
+      - RabbitMq__Queue=${RABBITMQ_QUEUE}
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: RabbitMQ
+    hostname: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+    volumes:
+      - ./etc/rabbitmq:/var/lib/rabbitmq/mnesia
+    networks:
+      - rabbitmq
+    ports:
+      - 5672:5672    #amqp
+      - 15672:15672  #http
+      - 15692:15692  #prometheus
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    restart: always
+
+networks:
+  rabbitmq:
+    driver: bridge

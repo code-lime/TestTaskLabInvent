@@ -1,0 +1,14 @@
+version: '3.4'
+
+#services:
+#  dataprocessor:
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#    ports:
+#      - "80"
+#
+#  fileparser:
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#    ports:
+#      - "80"
