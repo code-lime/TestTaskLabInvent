@@ -24,6 +24,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#rabbitmq">RabbitMQ</a></li>
   </ol>
 </details>
 
@@ -98,7 +99,7 @@ RabbitMQ, SQLite)
 
 В папке `./ext/sqlite` находится файл `SQLite` базы данных в который происходит сохранение измененных данных из `.xml` файлов отправленных через `RabbitMQ`
 
-### Setup remote RabbitMQ
+### RabbitMQ
 
 Для подключения внешней `RabbitMQ` требуется изменить файл [docker-compose.yml](docker-compose.yml).
 
