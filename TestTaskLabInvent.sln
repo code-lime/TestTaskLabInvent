@@ -20,6 +20,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProcessor.Application", "src\DataProcessor.Application\DataProcessor.Application.csproj", "{FA51C3D4-053C-4CB8-8843-C4DF4FF9086D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{131F2FD7-1509-4475-8AB6-CAEEAC9DBA08}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{10677231-C794-4281-89D8-D18F86FE606F}"
 EndProject
