@@ -21,28 +21,4 @@ public class DeviceStatus
         get => RapidControlStatus.Value;
         set => RapidControlStatus.Value = value;
     }
-
-    /*
-    [JsonIgnore]
-    [XmlElement(ElementName = "RapidControlStatus")]
-    public string RapidControlStatus_Raw
-    {
-        get
-        {
-            using StringWriter writer = new StringWriter();
-            XmlSerializer converter = new XmlSerializer(RapidControlStatus.GetType());
-            converter.Serialize(writer, this);
-            return writer.ToString();
-        }
-        set
-        {
-            using StringReader reader = new StringReader(value);
-            XmlSerializer converter = new XmlSerializer(typeof(ICombinedStatus), new Type[] {
-                typeof(CombinedOvenStatus),
-                typeof(CombinedPumpStatus),
-                typeof(CombinedSamplerStatus)
-            });
-            RapidControlStatus = (ICombinedStatus)converter.Deserialize(reader)!;
-        }
-    }*/
 }
